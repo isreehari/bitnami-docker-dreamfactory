@@ -1,4 +1,58 @@
 
+# Automate the DreamFactory build with our custom changes to run in openshift.
+
+1) We have forked the bitnami docker github repository(https://github.com/bitnami/bitnami-docker-dreamfactory) under 
+    isreehari/bitnami-docker-dreamfactory (https://github.com/isreehari/bitnami-docker-dreamfactory) so the fork
+    will keep track the parent bitnami docker repository. Our developer will keep track the changes on every monday.
+    If there is any new release happens then will review it and release into our build cycle.
+2) We will clone the isreehari/bitnami-docker-dreamfactory and modify few things based on our requirments then
+    build a new docker image and push to our private registry which is (https://gitlab.com/dreamfactorydocker)
+    1) SPLessons DreamFactory (DF) specifications:
+        1) DF version : 2.14.1        
+        3) Bitnami Docker Image version : "2.14.1-debian-9-r159"
+        4) DF Bitnami Package name / URL (REF): dreamfactory-2.14.1-20 / https://downloads.bitnami.com/files/stacksmith/dreamfactory-2.14.1-20-linux-amd64-debian-9.tar.gz        
+        5) Last revised date: Mar-23-2019
+        6) Modifications: 
+            1) Current working directory will be: "2/debian-9/Dockerfile"
+            1) Note down the package name "dreamfactory-2.14.1-20" from 
+                `RUN bitnami-pkg unpack dreamfactory-2.14.1-20 --checksum de247f6c455feefe15f5a3c2700c5e91259be7f06c06a12e49e952c0a0229686'
+            2) From Dockerfile Remove the command
+                `RUN bitnami-pkg unpack dreamfactory-2.14.1-20 --checksum de247f6c455feefe15f5a3c2700c5e91259be7f06c06a12e49e952c0a0229686'
+            3) Add the following lines of code in rootfs/app-entrypoint.sh before `nami_initialize apache php libphp dreamfactory` command
+                ```
+                    cd /tmp/bitnami/pkg/install/
+                    nami unpack dreamfactory
+                    rm -rf /tmp/bitnami/pkg/install/
+                    cd / 
+                    nami_initialize apache php libphp dreamfactory                   
+                ```
+            4) Build the docker image
+                ```
+                    Syntax: 
+                    docker build -t registry.gitlab.com/dreamfactorydocker:{Bitnami Docker Image version} .
+                    docker push registry.gitlab.com/dreamfactorydocker:{Bitnami Docker Image version}
+
+                    E.g.: 
+                    docker build -t registry.gitlab.com/dreamfactorydocker:2.14.1-debian-9-r159 .
+                    docker push registry.gitlab.com/dreamfactorydocker:2.14.1-debian-9-r159
+                ```
+                
+# How to download the dreamfactory project files from bitnami downloads? 
+    We need to build the downloadable url : https://downloads.bitnami.com/files/$RELEASE_BUCKET/$PACKAGE.tar.gz
+
+Step 1) Get the package name from `RUN bitnami-pkg unpack dreamfactory-2.14.1-20 ******` so it would be "dreamfactory-2.14.1-20" and
+        then append the string "-linux-amd64-debian-9" 
+        Final package name will be: 
+        PACKAGE =  dreamfactory-2.14.1-20-linux-amd64-debian-9
+Step 2) Get the RELEASE_BUCKET so it is stacksmith by default at time of writing this notes
+        RELEASE_BUCKET = stacksmith 
+        ref - https://github.com/bitnami/minideb-extras/blob/master/stretch/rootfs/usr/local/bin/bitnami-pkg 
+            - https://github.com/bitnami/minideb-extras/blob/master/stretch/rootfs/usr/local/bin/bitnami-pkg#L152
+
+Step 3) Formation of downloadable url. https://downloads.bitnami.com/files/{RELEASE_BUCKET}/{PACKAGE}.tar.gz
+        Eg. Downloadable url: https://downloads.bitnami.com/files/stacksmith/dreamfactory-2.14.1-20-linux-amd64-debian-9.tar.gz
+
+
 # What is DreamFactory?
 
 > DreamFactory is an open source REST API for mobile enterprise application developers. Add a REST API to any backend system. Services include SQL, NoSQL, BLOB, email, users, roles, security, and integration. Whether you’re building a native or web-based app, DreamFactory developers can focus on creating great front-ends to their apps, while leaving all the backend work to DreamFactory.
