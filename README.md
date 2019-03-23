@@ -1,5 +1,5 @@
 
-# Automate the DreamFactory build for openshift build.
+# Automate the Bitnami DreamFactory for openshift build
 
 1) We have forked the bitnami docker github repository(https://github.com/bitnami/bitnami-docker-dreamfactory) under 
     isreehari/bitnami-docker-dreamfactory (https://github.com/isreehari/bitnami-docker-dreamfactory) so the fork
@@ -38,7 +38,7 @@
                 ```
                 
 # How to download the dreamfactory project files from bitnami downloads? 
-    We need to build the downloadable url :
+  We need to build the downloadable url :
      https://downloads.bitnami.com/files/$RELEASE_BUCKET/$PACKAGE.tar.gz
 
 * Step 1)
@@ -49,12 +49,13 @@
 * Step 2) 
   * Get the RELEASE_BUCKET so it is stacksmith by default at time of writing this notes
 
-        RELEASE_BUCKET = stacksmith 
+      RELEASE_BUCKET = stacksmith 
 
-        ref - 
-            https://github.com/bitnami/minideb-extras/blob/master/stretch/rootfs/usr/local/bin/bitnami-pkg 
+      REF - 
+      
+      * https://github.com/bitnami/minideb-extras/blob/master/stretch/rootfs/usr/local/bin/bitnami-pkg 
 
-            https://github.com/bitnami/minideb-extras/blob/master/stretch/rootfs/usr/local/bin/bitnami-pkg#L152
+      * https://github.com/bitnami/minideb-extras/blob/master/stretch/rootfs/usr/local/bin/bitnami-pkg#L152
 
 * Step 3) 
   * Formation of downloadable url. 
