@@ -1,5 +1,5 @@
 
-# Automate the Bitnami DreamFactory for openshift build
+# Automate the Bitnami DreamFactory for SPLessons build
 
 1) We have forked the bitnami docker github repository(https://github.com/bitnami/bitnami-docker-dreamfactory) under 
     isreehari/bitnami-docker-dreamfactory (https://github.com/isreehari/bitnami-docker-dreamfactory) so the fork
