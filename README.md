@@ -1,5 +1,5 @@
 
-# Automate the DreamFactory build with our custom changes to run in openshift.
+# Automate the DreamFactory build for openshift build.
 
 1) We have forked the bitnami docker github repository(https://github.com/bitnami/bitnami-docker-dreamfactory) under 
     isreehari/bitnami-docker-dreamfactory (https://github.com/isreehari/bitnami-docker-dreamfactory) so the fork
@@ -38,19 +38,30 @@
                 ```
                 
 # How to download the dreamfactory project files from bitnami downloads? 
-    We need to build the downloadable url : https://downloads.bitnami.com/files/$RELEASE_BUCKET/$PACKAGE.tar.gz
+    We need to build the downloadable url :
+     https://downloads.bitnami.com/files/$RELEASE_BUCKET/$PACKAGE.tar.gz
 
-Step 1) Get the package name from `RUN bitnami-pkg unpack dreamfactory-2.14.1-20 ******` so it would be "dreamfactory-2.14.1-20" and
+* Step 1)
+  *  Get the package name from `RUN bitnami-pkg unpack dreamfactory-2.14.1-20 ******` so it would be "dreamfactory-2.14.1-20" and
         then append the string "-linux-amd64-debian-9" 
         Final package name will be: 
         PACKAGE =  dreamfactory-2.14.1-20-linux-amd64-debian-9
-Step 2) Get the RELEASE_BUCKET so it is stacksmith by default at time of writing this notes
-        RELEASE_BUCKET = stacksmith 
-        ref - https://github.com/bitnami/minideb-extras/blob/master/stretch/rootfs/usr/local/bin/bitnami-pkg 
-            - https://github.com/bitnami/minideb-extras/blob/master/stretch/rootfs/usr/local/bin/bitnami-pkg#L152
+* Step 2) 
+  * Get the RELEASE_BUCKET so it is stacksmith by default at time of writing this notes
 
-Step 3) Formation of downloadable url. https://downloads.bitnami.com/files/{RELEASE_BUCKET}/{PACKAGE}.tar.gz
-        Eg. Downloadable url: https://downloads.bitnami.com/files/stacksmith/dreamfactory-2.14.1-20-linux-amd64-debian-9.tar.gz
+        RELEASE_BUCKET = stacksmith 
+
+        ref - 
+            https://github.com/bitnami/minideb-extras/blob/master/stretch/rootfs/usr/local/bin/bitnami-pkg 
+
+            https://github.com/bitnami/minideb-extras/blob/master/stretch/rootfs/usr/local/bin/bitnami-pkg#L152
+
+* Step 3) 
+  * Formation of downloadable url. 
+       https://downloads.bitnami.com/files/{RELEASE_BUCKET}/{PACKAGE}.tar.gz
+
+       Eg. Downloadable url: 
+       https://downloads.bitnami.com/files/stacksmith/dreamfactory-2.14.1-20-linux-amd64-debian-9.tar.gz
 
 
 # What is DreamFactory?
