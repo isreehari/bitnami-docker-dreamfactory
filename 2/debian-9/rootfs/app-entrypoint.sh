@@ -7,10 +7,14 @@ print_welcome_page
 
 if [[ "$1" == "nami" && "$2" == "start" ]] || [[ "$1" == "httpd" ]]; then
     # SPLessons custom code - start
-    cd /tmp/bitnami/pkg/install/
-    nami unpack dfmodifieddocker
-    rm -rf /tmp/bitnami/pkg/install/
-    cd /   
+      if [ -d "spldreamfactory"]; then 
+            cd spldreamfactory    
+            if [ -d "dfmodifieddocker"]; then 
+                nami unpack dfmodifieddocker
+            fi
+            cd /
+            rm -rf spldreamfactory       
+      fi
     # SPLessons custom code - end
   nami_initialize apache php libphp dreamfactory
   info "Starting dreamfactory... "
