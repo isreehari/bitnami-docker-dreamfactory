@@ -7,9 +7,9 @@ print_welcome_page
 
 if [[ "$1" == "nami" && "$2" == "start" ]] || [[ "$1" == "httpd" ]]; then
     # SPLessons custom code - start
-      if [ -d "spldreamfactory"]; then 
+      if [ -d "spldreamfactory" ]; then 
             cd spldreamfactory    
-            if [ -d "dfmodifiedproject"]; then 
+            if [ -d "dfmodifiedproject" ]; then 
                 nami unpack dfmodifiedproject
             fi
             cd /
