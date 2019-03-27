@@ -12,11 +12,11 @@ RUN bitnami-pkg unpack libphp-7.1.27-0 --checksum 189e5268903e19b865b3aaae16535c
   # SPLessons custom code - start
     #RUN bitnami-pkg unpack dreamfactory-2.14.1-20 --checksum de247f6c455feefe15f5a3c2700c5e91259be7f06c06a12e49e952c0a0229686
     RUN mkdir -p /tmp/bitnami/pkg/install/dfmodifiedproject
-    COPY . /tmp/bitnami/pkg/install/dfmodifiedproject
-    # WORKDIR /tmp/bitnami/pkg/install/
-    # RUN nami unpack dfmodifiedproject
-    # WORKDIR /
-    # RUN rm -rf /tmp/bitnami/pkg/install
+    COPY dfmodifiedproject /tmp/bitnami/pkg/install/dfmodifiedproject
+    WORKDIR /tmp/bitnami/pkg/install/
+    RUN nami unpack dfmodifiedproject
+    WORKDIR /
+    RUN rm -rf /tmp/bitnami/pkg/install
 
   # SPLessons custom code - end
 RUN mkdir -p /opt/bitnami/apache/tmp && chmod g+rwX /opt/bitnami/apache/tmp
